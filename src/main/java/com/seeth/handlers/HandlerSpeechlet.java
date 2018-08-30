@@ -1,23 +1,26 @@
 package com.seeth.handlers;
 
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Component;
 
 import com.amazon.speech.json.SpeechletRequestEnvelope;
 import com.amazon.speech.slu.Intent;
 import com.amazon.speech.speechlet.IntentRequest;
 import com.amazon.speech.speechlet.LaunchRequest;
+import com.amazon.speech.speechlet.Session;
 import com.amazon.speech.speechlet.SessionEndedRequest;
 import com.amazon.speech.speechlet.SessionStartedRequest;
-import com.amazon.speech.speechlet.SpeechletException;
 import com.amazon.speech.speechlet.SpeechletResponse;
 import com.amazon.speech.speechlet.SpeechletV2;
 import com.amazon.speech.ui.PlainTextOutputSpeech;
 import com.amazon.speech.ui.Reprompt;
-import com.amazon.speech.ui.SimpleCard;
 
 @Component
 public class HandlerSpeechlet implements SpeechletV2 {
 	
+	private AnnotationConfigApplicationContext context;
+
+
 	@Override
 	public void onSessionStarted(
 			SpeechletRequestEnvelope<SessionStartedRequest> requestEnvelope) {
@@ -45,9 +48,18 @@ public class HandlerSpeechlet implements SpeechletV2 {
 		
 		Intent intent = request.getIntent();
 		
+		Session session = requestEnvelope.getSession();
+		
 		String intentName = intent.getName();
 		
-		SpeechletResponse response = null;
+		String handlerBeanName = intentName + "Handler";
+		context = new AnnotationConfigApplicationContext("com.seeth");
+		Object handlerBean = context.getBean(handlerBeanName);
+		
+		IntentHandler intentHandler = (IntentHandler) handlerBean;
+		
+		return intentHandler.handleIntent(intent, request, session);
+		/*SpeechletResponse response = null;
 		
 		if(intentName.equals("regioninfo")) {
 			String speechText = "Hello, World.  I am a Spring Boot custom skill.";
@@ -68,7 +80,8 @@ public class HandlerSpeechlet implements SpeechletV2 {
 				e.printStackTrace();
 			}
         }
-		return response;
+		return response;*/
+		
 	}
 	
 
