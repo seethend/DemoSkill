@@ -52,35 +52,32 @@ public class HandlerSpeechlet implements SpeechletV2 {
 		
 		String intentName = intent.getName();
 		
-		String handlerBeanName = intentName + "Handler";
+		String handlerBeanName = null;
+		
+		if(intentName.equals("AMAZON.FallbackIntent")) {
+			handlerBeanName = "fallbackIntentHandler";
+		}
+		else if(intentName.equals("AMAZON.CancelIntent")) {
+			handlerBeanName = "cancelIntentHandler";
+		}
+		else if(intentName.equals("AMAZON.HelpIntent")) {
+			handlerBeanName = "helpIntentHandler";
+		}
+		else if(intentName.equals("AMAZON.StopIntent")) {
+			handlerBeanName = "stopIntentHandler";
+		}
+		else if(intentName.equals("AMAZON.NavigateHomeIntent")) {
+			handlerBeanName = "navigateHomeIntent";
+		}
+		else {
+			handlerBeanName = intentName + "Handler";
+		}
 		context = new AnnotationConfigApplicationContext("com.seeth");
 		Object handlerBean = context.getBean(handlerBeanName);
 		
 		IntentHandler intentHandler = (IntentHandler) handlerBean;
 		
 		return intentHandler.handleIntent(intent, request, session);
-		/*SpeechletResponse response = null;
-		
-		if(intentName.equals("regioninfo")) {
-			String speechText = "Hello, World.  I am a Spring Boot custom skill.";
-
-            SimpleCard card = new SimpleCard();
-            card.setTitle("Hello World");
-            card.setContent(speechText);
-
-            PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
-            speech.setText(speechText);
-
-            response = SpeechletResponse.newTellResponse(speech, card);
-        }
-        else {
-            try {
-				throw new SpeechletException("I don't understand that intent.");
-			} catch (SpeechletException e) {
-				e.printStackTrace();
-			}
-        }
-		return response;*/
 		
 	}
 	

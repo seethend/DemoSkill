@@ -1,7 +1,0 @@
-com\seeth\handlers\IntentHandler.class
-com\seeth\config\CustomContainer.class
-com\seeth\handlers\RegionInfoHandler.class
-com\seeth\handlers\HandlerSpeechlet.class
-com\seeth\config\AlexaConfig.class
-com\seeth\DemoSkillApplication.class
-com\seeth\utils\AlexaUtils.class
