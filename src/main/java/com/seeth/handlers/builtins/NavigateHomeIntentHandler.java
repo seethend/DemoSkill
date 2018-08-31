@@ -9,16 +9,18 @@ import com.amazon.speech.ui.PlainTextOutputSpeech;
 import com.seeth.handlers.IntentHandler;
 import com.seeth.utils.AlexaUtils;
 
-public class StopIntentHandler implements IntentHandler {
+public class NavigateHomeIntentHandler implements IntentHandler {
 
 	@Override
 	public SpeechletResponse handleIntent(Intent intent, IntentRequest request, Session session) {
 		
-		Card card = AlexaUtils.newCard("Alexa Demo Skill", "Conversation Ended...Byee!!!");
+		Card card = AlexaUtils.newCard("Alexa Demo Skill", "You have canceled the current request");
 		
-		PlainTextOutputSpeech speech = AlexaUtils.newSpeech("Ok... Bye!!!", AlexaUtils.inConversationMode(session));
+		PlainTextOutputSpeech speech = AlexaUtils.newSpeech("You have canceled the current request", AlexaUtils.inConversationMode(session));
 		
-		return AlexaUtils.newSpeechletResponse(card, speech, session, true);
+		AlexaUtils.setConversationMode(session, true);
+		
+		return AlexaUtils.newSpeechletResponse( card, speech, session, false);
 	}
 
 }

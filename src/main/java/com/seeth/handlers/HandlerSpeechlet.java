@@ -57,14 +57,14 @@ public class HandlerSpeechlet implements SpeechletV2 {
 		if(intentName.equals("AMAZON.FallbackIntent")) {
 			handlerBeanName = "fallbackIntentHandler";
 		}
-		else if(intentName.equals("AMAZON.CancelIntent")) {
-			handlerBeanName = "cancelIntentHandler";
+		else if(intentName.equals("AMAZON.StopIntent")) {
+			handlerBeanName = "stopIntentHandler";
 		}
 		else if(intentName.equals("AMAZON.HelpIntent")) {
 			handlerBeanName = "helpIntentHandler";
 		}
-		else if(intentName.equals("AMAZON.StopIntent")) {
-			handlerBeanName = "stopIntentHandler";
+		else if(intentName.equals("AMAZON.CancelIntent")) {
+			handlerBeanName = "cancelIntentHandler";
 		}
 		else if(intentName.equals("AMAZON.NavigateHomeIntent")) {
 			handlerBeanName = "navigateHomeIntent";
