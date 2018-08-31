@@ -1,4 +1,4 @@
-package com.seeth.handlers;
+package com.seeth.handlers.custom;
 
 import org.springframework.stereotype.Component;
 
@@ -8,6 +8,7 @@ import com.amazon.speech.speechlet.Session;
 import com.amazon.speech.speechlet.SpeechletResponse;
 import com.amazon.speech.ui.Card;
 import com.amazon.speech.ui.PlainTextOutputSpeech;
+import com.seeth.handlers.IntentHandler;
 import com.seeth.utils.AlexaUtils;
 
 @Component
